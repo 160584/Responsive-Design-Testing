@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Responsive Design Testing</title>
+
+<style>
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: scroll;
+  text-align: center;
+  font: 100% / 1 monospace;
+  color: #fff;
+  background: silver;
+}
+#options {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3.5em;
+}
+#options input {
+  float: left;
+}
+#options label {
+  display: block;
+  padding: 10px;
+  cursor: pointer;
+}
+#options input:checked + label {
+  background: darkgrey;
+}
+iframe {
+  height: 49%;
+  min-height: 525px;
+  margin: 0 1% 1% 0;
+  
+  border: 0 solid;
+  outline: solid 1px black;
+}
+.l iframe {
+  height: 100%;
+}
+
+::-webkit-scrollbar             { width: 5px; height: 10px; }
+::-webkit-scrollbar-track-piece,
+::-webkit-scrollbar-button,
+::-webkit-scrollbar-track       { background: silver }
+::-webkit-scrollbar-thumb       { background: grey }
+/*::-webkit-scrollbar-corner      { }*/
+/*::-webkit-resizer               { }*/
+
+</style>
+</head>
+<body>
+
+<form method="get" id="options">
+  <input id="normal" type="radio" name="size" value="s" checked><label for="normal">S</label>
+  <input id="big" type="radio" name="size" value="l"><label for="big">L</label>
+</form>
+
+<div id="frames" style="width: 100%">
+<!-- 240 --><iframe width="245" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+
+<!-- 320 --><iframe width="325" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+
+<!-- 480 --><iframe width="485" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+
+<!-- 600 --><iframe width="605" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+
+<!-- 768 --><iframe width="773" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+
+<!-- 1024 --><iframe width="1029" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+
+<!-- 1200 --><iframe width="1205" sandbox="allow-same-origin allow-forms allow-scripts" seamless></iframe><!-- -->
+</div>
+
+<!--
+
+  Credits
+  =======
+
+  A tool by Matt Kersley (http://mattkersley.com)
+  Fork it on Github: https://github.com/mattkersley/Responsive-Design-Testing
+
+-->
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script>
+
+  var defaultUrl = "http://localhost/",
+      firstFrame = null;
+
+  // Load the url into all iframes, except the requesting iframe
+  function loadPage(url, firstFrame) {
+
+    $("iframe").not(firstFrame).attr("src", url)
+
+  }
+
+  $(document).ready(function(){
+    
+    // Load the initial page query. Start with the query string and fallback to the default
+    var query = document.location.hash.substr(1) || defaultUrl
+
+    loadPage(query, null)
+
+
+    // Toggle classnames for iframe-size(s)
+    $("input[name=size]").change(function(){
+      document.body.className = this.value
+    })
+    
+    // Add shortcut-key to radio-buttons
+    $(window).keydown(function(event){
+    // F12 = 123
+    // + = 107
+      if(event.keyCode == 107) {
+        $("input[type=radio]:not(:checked)").first().click()
+      }
+    })
+
+
+    // When an iframe loads a (new) url
+    $("iframe").load(function() {
+
+      try {
+
+        var u = $(this).contents().get(0).location
+
+      } catch(e) {
+
+        console.warn("!", e)
+
+      }
+
+      document.location.hash = u.href
+
+      firstFrame = this
+
+    })
+
+    // When target-url changes in location-bar
+    $(window).on("hashchange", function(event){
+
+      var newUrl = event.originalEvent.newURL.split('#')[1]
+
+      loadPage(newUrl, firstFrame)
+
+    })
+
+
+  });
+</script>
+
+</body>
+</html>

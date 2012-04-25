@@ -1,16 +1,27 @@
-# Responsive Design Testing
-This tool is for everyone who needs a quick and easy way to test their website design in multiple screen widths.
+Responsive Design Testing
+=========================
 
-## Permalink style testing
-You can test any website, and provide the link to anyone you like by adding their URL to the end of the testing page address.
-For example:
-http://mattkersley.com/responsive?google.com
+Handige tool om verschillende versies van een site/template in 1 oogopslag te bekijken, testen of demo'n.
 
-## Installing on your own server
-- Copy index.html and responsive.js onto your machine
-- Update the *deafultURL* at the top of responsive.js to your own website
--	Upload the files into a subdirectory on your server
-- Navigate to the new subdirectory via a browser
+Gebruik:
+--------
 
-Once you've uploaded, you can navigate your website from within the iframes, and the others will update.
-This won't work for external sites however due to browser security restrictions.
+- Kopieer responsive.html naar je (project)-folder
+- Bewerk eventueel de variabele "defaultURL"
+- Bewerk de comments om 1 of meerdere viewports uit te schakelen
+- Open een (webkit)-browser met bijvoorbeeld: "responsive.html#http://localhost/projectnaam/"
+- Win!
+
+
+
+-------
+Credits:
+-------
+
+Bekijk de originele code of de forks daarvan op GitHub:
+https://github.com/mattkersley/Responsive-Design-Testing
+
+Of fork deze versie:
+https://github.com/160584/Responsive-Design-Testing
+
+   :)
